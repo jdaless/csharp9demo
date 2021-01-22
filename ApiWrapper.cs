@@ -24,21 +24,15 @@ namespace csharp9demo
                 json,
                 new ExpandoObjectConverter())!;
 
-            static Ingredient? ingredientConverter(dynamic d) => 
-                d != null 
-                    ? new Ingredient
-                    {
-                        Url = d.url,
-                        Name = d.name,
-                        Recipe = d.recipe,
-                        Slug = d.slug
-                    } 
+            Func<dynamic, Ingredient?> ingredientConverter = static d =>
+                d != null
+                    ? new Ingredient { Name = d.name, Recipe = d.recipe, Slug = d.slug, Url = d.url }
                     : null;
 
             return new Taco
             {
-                Name = apiObject.name,
                 Url = apiObject.url,
+                Name = apiObject.name,
                 Recipe = apiObject.recipe,
                 Slug = apiObject.slug,
                 Seasoning = ingredientConverter(apiObject.seasoning),
@@ -80,9 +74,8 @@ namespace csharp9demo
             {
                 good = true;
                 t = await GetRandomTaco(fullTaco);
-                var enumerator = t.GetEnumerator();
-                while (enumerator.MoveNext())
-                    if (!func(t, enumerator.Current))
+                foreach (var i in t)
+                    if (!func(t, i))
                         good = false;
             }
             while (!good);

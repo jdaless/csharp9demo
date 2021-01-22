@@ -26,9 +26,17 @@ namespace TacoTests
         [Test]
         public void IsFullTest()
         {
-            var t = new Taco { BaseLayer = new(), Condiment = new(), Mixin = new(), Seasoning = new(), Shell = new() };
+            var emptyIngredient = new Ingredient();
+            var t = Taco.GetEmptyTaco() with
+            {
+                BaseLayer = emptyIngredient,
+                Condiment = emptyIngredient,
+                Mixin = emptyIngredient,
+                Seasoning = emptyIngredient,
+                Shell = emptyIngredient
+            };
             Assert.IsTrue(t.IsFull());
-            t.Condiment = null;
+            t = t with { Condiment = null };
             Assert.IsFalse(t.IsFull());
         }
 
