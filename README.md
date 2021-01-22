@@ -1,3 +1,7 @@
+# C#9 Demo App
+
+This is a C#8 project. However, there are a few places where upgrading to C#9 can make things a lot clearer and more concise using the new features of the language. 
+
 New features are [here](https://docs.microsoft.com/en-us/dotnet/csharp/whats-new/csharp-9#pattern-matching-enhancements).
 
 Here's a checklist of stuff I put around to be used to upgrade the app:
